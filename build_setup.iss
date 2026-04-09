@@ -47,14 +47,13 @@ Name: "desktopicon"; Description: "Tạo biểu tượng trên Desktop"; GroupDe
 ; CỰC KỲ QUAN TRỌNG: Chỉ lấy toàn bộ dữ liệu BÊN TRONG thư mục đã build của PyInstaller
 ; Đảm bảo rằng trong thư mục "dist" của anh có chứa một thư mục tên là "SMS_Marketing_Pro" (hoặc tên app anh đặt)
 Source: "dist\SMS_Marketing_Pro\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Excludes: "*.db,*.sqlite,*.sqlite3"
+Source: "logo.ico"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
-; Shortcut trong Start Menu (Sẽ tự động lấy Icon của file EXE)
-Name: "{group}\{#MyAppName}";    Filename: "{app}\{#MyAppExeName}"
+Name: "{group}\{#MyAppName}";    Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\logo.ico"
 Name: "{group}\Gỡ cài đặt {#MyAppName}"; Filename: "{uninstallexe}"
 
-; Shortcut trên Desktop (Sẽ tự động lấy Icon của file EXE)
-Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
+Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon; IconFilename: "{app}\logo.ico"
 
 [Run]
 ; Chạy app ngay sau khi cài xong

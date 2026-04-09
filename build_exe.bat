@@ -7,13 +7,19 @@ echo   PyArmor (ma hoa) + PyInstaller (dong goi)
 echo ============================================
 echo.
 
+REM ── Kich hoat moi truong ao (neu co) ────────────
+if exist ".venv\Scripts\activate.bat" (
+    echo     Kich hoat .venv...
+    call .venv\Scripts\activate.bat
+) else if exist "venv\Scripts\activate.bat" (
+    echo     Kich hoat venv...
+    call venv\Scripts\activate.bat
+)
+
 REM ── Tim Python ──────────────────────────────────
 set PYTHON_CMD=
 where python >nul 2>&1 && set PYTHON_CMD=python
 if "%PYTHON_CMD%"=="" (where py >nul 2>&1 && set PYTHON_CMD=py)
-if "%PYTHON_CMD%"=="" (
-    if exist "venv\Scripts\python.exe" set PYTHON_CMD=venv\Scripts\python.exe
-)
 if "%PYTHON_CMD%"=="" (
     echo [LOI] Khong tim thay Python. Hay cai dat Python va them vao PATH.
     pause
@@ -32,7 +38,7 @@ echo     Da don dep xong.
 echo.
 
 REM ── Kiem tra PyArmor va PyInstaller ─────────────
-%PYTHON_CMD% -m pip show pyarmor >nul 2>&1
+pyarmor --version >nul 2>&1
 if errorlevel 1 (
     echo [!] Chua cai PyArmor. Dang cai dat...
     %PYTHON_CMD% -m pip install pyarmor
@@ -49,7 +55,7 @@ REM ── Buoc 1: Ma hoa source code bang PyArmor ────
 echo [1/4] Ma hoa source code bang PyArmor...
 echo.
 
-%PYTHON_CMD% -m pyarmor gen -O obfuscated app.py database.py gateway.py utils.py update_manager.py
+pyarmor gen -O obfuscated app.py database.py gateway.py utils.py update_manager.py
 
 if not exist "obfuscated\app.py" (
     echo [LOI] PyArmor ma hoa that bai. Kiem tra log phia tren.
@@ -65,7 +71,7 @@ REM ── Buoc 2: Tim duong dan streamlit/static ─────
 echo [2/4] Tim duong dan streamlit/static...
 echo.
 
-for /f "delims=" %%i in ('%PYTHON_CMD% -c "import streamlit, os; print(os.path.dirname(streamlit.__file__))"') do set STREAMLIT_PATH=%%i
+for /f "tokens=*" %%i in ('%PYTHON_CMD% -c "import streamlit; print(streamlit.__path__[0])"') do set STREAMLIT_PATH=%%i
 
 if "%STREAMLIT_PATH%"=="" (
     echo [LOI] Khong tim thay thu vien Streamlit. Hay chay: %PYTHON_CMD% -m pip install streamlit
@@ -77,31 +83,32 @@ echo.
 
 REM ── Tim thu muc pyarmor_runtime sinh ra ─────────
 set PYARMOR_RUNTIME=
-for /d %%d in (obfuscated\pyarmor_runtime_*) do set PYARMOR_RUNTIME=%%d
+set PYARMOR_RUNTIME_NAME=
+for /d %%d in (obfuscated\pyarmor_runtime_*) do (
+    set PYARMOR_RUNTIME=%%d
+    set PYARMOR_RUNTIME_NAME=%%~nxd
+)
 
-echo     PyArmor runtime: %PYARMOR_RUNTIME%
+if "%PYARMOR_RUNTIME%"=="" (
+    echo [CANH BAO] Khong tim thay pyarmor_runtime trong obfuscated\.
+) else (
+    echo     PyArmor runtime dir:  %PYARMOR_RUNTIME%
+    echo     PyArmor runtime name: %PYARMOR_RUNTIME_NAME%
+)
 echo.
 
 REM ── Buoc 3: Dong goi bang PyInstaller ───────────
 echo [3/4] Dang chay PyInstaller (dung file da ma hoa)...
 echo.
 
-if "%PYARMOR_RUNTIME%"=="" (
-    echo [CANH BAO] Khong tim thay pyarmor_runtime. Build se tiep tuc nhung co the loi runtime.
-    set RUNTIME_FLAG=
-) else (
-    for %%f in ("%PYARMOR_RUNTIME%") do set RUNTIME_BASENAME=%%~nxf
-    set RUNTIME_FLAG=--add-data "%PYARMOR_RUNTIME%;%RUNTIME_BASENAME%"
-)
-
-%PYTHON_CMD% -m PyInstaller --noconfirm --onedir --console ^
+pyinstaller --noconfirm --onedir --console ^
     --name "SMS_Marketing_Pro" ^
     --add-data "obfuscated\app.py;." ^
     --add-data "obfuscated\database.py;." ^
     --add-data "obfuscated\gateway.py;." ^
     --add-data "obfuscated\utils.py;." ^
     --add-data "obfuscated\update_manager.py;." ^
-    %RUNTIME_FLAG% ^
+    --add-data "%PYARMOR_RUNTIME%\*;%PYARMOR_RUNTIME_NAME%" ^
     --add-data "%STREAMLIT_PATH%\static;streamlit/static" ^
     --hidden-import streamlit ^
     --hidden-import streamlit.web.cli ^
