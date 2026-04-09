@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMS Marketing Pro — Giải pháp gửi SMS hàng loạt tự động</title>
+    <meta name="description" content="Biến điện thoại Android cũ thành trạm phát sóng SMS chuyên nghiệp. Gửi tin nhắn chăm sóc khách hàng hàng loạt với chi phí 0đ.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            green: '#16a34a',
+                            'green-dark': '#15803d',
+                            yellow: '#eab308',
+                            'yellow-light': '#fde047',
+                            dark: '#0f172a',
+                            'dark-soft': '#1e293b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #14532d 100%);
+        }
+        .glow-green {
+            box-shadow: 0 0 30px rgba(22, 163, 74, 0.3);
+        }
+        .glow-yellow {
+            box-shadow: 0 0 20px rgba(234, 179, 8, 0.25);
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        .step-line::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -50%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #16a34a, transparent);
+        }
+        @media (max-width: 768px) {
+            .step-line::after { display: none; }
+        }
+    </style>
+</head>
+<body class="bg-brand-dark text-gray-200 font-sans antialiased">
+
+    <!-- ═══════════════════════════════════════════ HEADER ═══════════════════════════════════════════ -->
+    <header class="fixed top-0 w-full z-50 bg-brand-dark/80 backdrop-blur-lg border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="#" class="flex items-center gap-2 group">
+                    <div class="w-9 h-9 bg-gradient-to-br from-brand-green to-brand-yellow rounded-lg flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-shield-halved text-white text-sm"></i>
+                    </div>
+                    <span class="text-lg font-bold text-white tracking-tight">SMS Marketing <span class="text-brand-yellow">Pro</span></span>
+                </a>
+
+                <nav class="hidden md:flex items-center gap-8">
+                    <a href="#features" class="text-sm text-gray-400 hover:text-brand-green transition-colors">Giới thiệu</a>
+                    <a href="#how-it-works" class="text-sm text-gray-400 hover:text-brand-green transition-colors">Hướng dẫn</a>
+                    <a href="#credits" class="text-sm text-gray-400 hover:text-brand-green transition-colors">Tác giả</a>
+                </nav>
+
+                <a href="https://github.com/TroniePh/sms-marketing-pro/releases/latest"
+                   class="hidden sm:inline-flex items-center gap-2 px-5 py-2 bg-brand-green hover:bg-brand-green-dark text-white text-sm font-semibold rounded-full transition-all hover:shadow-lg hover:shadow-green-500/20">
+                    <i class="fa-solid fa-download text-xs"></i>
+                    Tải bản V1.0.0
+                </a>
+
+                <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"
+                        class="md:hidden text-gray-400 hover:text-white">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+
+            <div id="mobile-menu" class="hidden md:hidden pb-4 border-t border-white/5 mt-2 pt-4 space-y-3">
+                <a href="#features" class="block text-sm text-gray-400 hover:text-brand-green">Giới thiệu</a>
+                <a href="#how-it-works" class="block text-sm text-gray-400 hover:text-brand-green">Hướng dẫn</a>
+                <a href="#credits" class="block text-sm text-gray-400 hover:text-brand-green">Tác giả</a>
+                <a href="https://github.com/TroniePh/sms-marketing-pro/releases/latest"
+                   class="inline-flex items-center gap-2 px-5 py-2 bg-brand-green text-white text-sm font-semibold rounded-full">
+                    <i class="fa-solid fa-download text-xs"></i> Tải bản V1.0.0
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════════ HERO ═══════════════════════════════════════════ -->
+    <section class="gradient-hero pt-32 pb-20 sm:pt-40 sm:pb-28 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-20 left-10 w-72 h-72 bg-brand-green rounded-full blur-3xl"></div>
+            <div class="absolute bottom-10 right-20 w-96 h-96 bg-brand-yellow rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="relative max-w-5xl mx-auto px-4 sm:px-6 text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 mb-8 rounded-full bg-white/5 border border-white/10 text-sm text-gray-400">
+                <span class="w-2 h-2 bg-brand-green rounded-full animate-pulse"></span>
+                Phiên bản 1.0.0 — Miễn phí hoàn toàn
+            </div>
+
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight">
+                Giải pháp Gửi SMS Hàng Loạt
+                <span class="block mt-2 bg-gradient-to-r from-brand-green to-brand-yellow-light bg-clip-text text-transparent">
+                    Tự Động & Tiết Kiệm
+                </span>
+            </h1>
+
+            <p class="mt-6 text-lg sm:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+                Biến điện thoại Android cũ của bạn thành trạm phát sóng SMS chuyên nghiệp.
+                Gửi tin nhắn chăm sóc khách hàng hàng loạt với chi phí
+                <span class="text-brand-yellow font-bold">0đ</span>
+                (nếu dùng gói cước nội mạng).
+            </p>
+
+            <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="https://github.com/TroniePh/sms-marketing-pro/releases/latest"
+                   class="inline-flex items-center gap-3 px-8 py-4 bg-brand-green hover:bg-brand-green-dark text-white font-bold rounded-xl text-lg transition-all hover:scale-105 glow-green">
+                    <i class="fa-solid fa-download"></i>
+                    Tải Về Windows (.exe)
+                </a>
+                <a href="https://github.com/TroniePh/sms-marketing-pro"
+                   class="inline-flex items-center gap-3 px-8 py-4 border-2 border-white/20 hover:border-brand-yellow text-white font-bold rounded-xl text-lg transition-all hover:scale-105 hover:bg-white/5">
+                    <i class="fa-brands fa-github"></i>
+                    Xem Mã Nguồn GitHub
+                </a>
+            </div>
+
+            <div class="mt-14 flex flex-wrap items-center justify-center gap-8 text-sm text-gray-500">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-check-circle text-brand-green"></i> Windows 10/11
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-check-circle text-brand-green"></i> Không cần Internet gửi tin
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-check-circle text-brand-green"></i> Hỗ trợ đa thiết bị
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ FEATURES ═══════════════════════════════════════════ -->
+    <section id="features" class="py-20 sm:py-28 bg-brand-dark-soft">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Tính năng nổi bật</h2>
+                <p class="mt-4 text-gray-400 max-w-2xl mx-auto">Được thiết kế dành riêng cho doanh nghiệp nhỏ, tiệm làm đẹp, phòng khám và cửa hàng muốn chăm sóc khách hàng qua SMS.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="card-hover bg-brand-dark rounded-2xl p-8 border border-white/5">
+                    <div class="w-14 h-14 bg-brand-green/10 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-bolt text-brand-green text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Tốc Độ & Đa Luồng</h3>
+                    <p class="text-gray-400 leading-relaxed">Mỗi nhà mạng chạy một luồng riêng biệt. Xử lý hàng ngàn số điện thoại song song, không block nhau, tối ưu delay chống spam.</p>
+                </div>
+
+                <div class="card-hover bg-brand-dark rounded-2xl p-8 border border-white/5">
+                    <div class="w-14 h-14 bg-brand-yellow/10 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-arrows-rotate text-brand-yellow text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Tự Động Cập Nhật (OTA)</h3>
+                    <p class="text-gray-400 leading-relaxed">Luôn nhận phiên bản mới nhất tự động qua GitHub Releases. Một cú nhấp chuột để nâng cấp, không cần tải lại thủ công.</p>
+                </div>
+
+                <div class="card-hover bg-brand-dark rounded-2xl p-8 border border-white/5">
+                    <div class="w-14 h-14 bg-brand-green/10 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-shield-halved text-brand-green text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Bảo Mật Dữ Liệu</h3>
+                    <p class="text-gray-400 leading-relaxed">Toàn bộ danh bạ và lịch sử gửi tin được lưu an toàn tuyệt đối trên máy tính cá nhân của bạn. Không qua server trung gian.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ HOW IT WORKS ═══════════════════════════════════════════ -->
+    <section id="how-it-works" class="py-20 sm:py-28 bg-brand-dark">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Bắt đầu chỉ với 3 bước</h2>
+                <p class="mt-4 text-gray-400 max-w-2xl mx-auto">Không cần kiến thức lập trình. Từ cài đặt đến gửi tin nhắn đầu tiên chỉ mất 5 phút.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 relative">
+                <div class="relative text-center card-hover bg-brand-dark-soft rounded-2xl p-8 border border-white/5">
+                    <div class="w-16 h-16 mx-auto bg-gradient-to-br from-brand-green to-brand-green-dark rounded-2xl flex items-center justify-center mb-6 glow-green">
+                        <span class="text-2xl font-extrabold text-white">1</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-3">Cài đặt trên Windows</h3>
+                    <p class="text-gray-400">Tải file Setup, nhấp đúp cài đặt như bất kỳ phần mềm Windows nào. Shortcut tự xuất hiện trên Desktop.</p>
+                </div>
+
+                <div class="relative text-center card-hover bg-brand-dark-soft rounded-2xl p-8 border border-white/5">
+                    <div class="w-16 h-16 mx-auto bg-gradient-to-br from-brand-yellow to-yellow-600 rounded-2xl flex items-center justify-center mb-6 glow-yellow">
+                        <span class="text-2xl font-extrabold text-white">2</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-3">Kết nối điện thoại Android</h3>
+                    <p class="text-gray-400">Cài app <a href="https://github.com/capcom6/android-sms-gateway/releases" class="text-brand-green hover:underline">SMS Gateway</a> trên điện thoại. Kết nối chung WiFi với máy tính là xong.</p>
+                </div>
+
+                <div class="relative text-center card-hover bg-brand-dark-soft rounded-2xl p-8 border border-white/5">
+                    <div class="w-16 h-16 mx-auto bg-gradient-to-br from-brand-green to-brand-yellow rounded-2xl flex items-center justify-center mb-6 glow-green">
+                        <span class="text-2xl font-extrabold text-white">3</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-3">Nhập Excel & Gửi</h3>
+                    <p class="text-gray-400">Tải file Excel/CSV chứa danh bạ, soạn nội dung tin nhắn với Spintax chống spam, bấm Gửi. Hệ thống lo phần còn lại.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ CTA ═══════════════════════════════════════════ -->
+    <section class="py-20 sm:py-24 bg-brand-dark-soft relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-0 right-0 w-80 h-80 bg-brand-green rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 left-0 w-64 h-64 bg-brand-yellow rounded-full blur-3xl"></div>
+        </div>
+        <div class="relative max-w-3xl mx-auto px-4 text-center">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-6">Sẵn sàng tiết kiệm chi phí SMS?</h2>
+            <p class="text-lg text-gray-400 mb-10">Tải ngay SMS Marketing Pro — miễn phí, mã nguồn mở, không quảng cáo.</p>
+            <a href="https://github.com/TroniePh/sms-marketing-pro/releases/latest"
+               class="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-brand-green to-brand-green-dark hover:from-brand-green-dark hover:to-brand-green text-white font-bold rounded-xl text-xl transition-all hover:scale-105 glow-green">
+                <i class="fa-solid fa-download"></i>
+                Tải Về Miễn Phí
+            </a>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ FOOTER ═══════════════════════════════════════════ -->
+    <footer id="credits" class="py-12 bg-brand-dark border-t border-white/5">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-brand-green to-brand-yellow rounded-lg flex items-center justify-center">
+                        <i class="fa-solid fa-shield-halved text-white"></i>
+                    </div>
+                    <div>
+                        <p class="text-white font-bold">SMS Marketing Pro</p>
+                        <p class="text-sm text-gray-500">Thiết kế & Phát triển bởi <span class="text-brand-yellow">Phạm Duy</span></p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-6 text-sm text-gray-500">
+                    <a href="mailto:duyhondavn@gmail.com" class="hover:text-brand-green transition-colors flex items-center gap-2">
+                        <i class="fa-solid fa-envelope"></i> duyhondavn@gmail.com
+                    </a>
+                    <a href="https://github.com/TroniePh/sms-marketing-pro" class="hover:text-brand-green transition-colors flex items-center gap-2">
+                        <i class="fa-brands fa-github"></i> GitHub
+                    </a>
+                </div>
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-white/5 text-center text-sm text-gray-600">
+                Copyright &copy; 2026 SMS Marketing Pro. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
