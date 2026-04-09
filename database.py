@@ -1,3 +1,5 @@
+import os
+import platform
 import sqlite3
 from contextlib import closing
 from datetime import datetime
@@ -5,7 +7,18 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 
-DB_PATH = Path("app_data.db")
+def _get_safe_data_dir() -> Path:
+    app_name = "SMS_Marketing_Pro"
+    if platform.system() == "Windows":
+        base = os.environ.get("APPDATA", os.path.expanduser("~"))
+    else:
+        base = os.path.expanduser("~")
+    app_dir = Path(base) / app_name
+    app_dir.mkdir(parents=True, exist_ok=True)
+    return app_dir
+
+
+DB_PATH = _get_safe_data_dir() / "app_data.db"
 
 
 def get_connection() -> sqlite3.Connection:

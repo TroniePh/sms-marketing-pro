@@ -6,6 +6,22 @@ echo   Dang build SMS Marketing Pro (onedir)
 echo ============================================
 echo.
 
+REM Tim Python (ho tro ca python, py, duong dan venv)
+set PYTHON_CMD=
+where python >nul 2>&1 && set PYTHON_CMD=python
+if "%PYTHON_CMD%"=="" (where py >nul 2>&1 && set PYTHON_CMD=py)
+if "%PYTHON_CMD%"=="" (
+    if exist "venv\Scripts\python.exe" set PYTHON_CMD=venv\Scripts\python.exe
+)
+if "%PYTHON_CMD%"=="" (
+    echo [LOI] Khong tim thay Python. Hay cai dat Python va them vao PATH.
+    pause
+    exit /b 1
+)
+echo     Python: %PYTHON_CMD%
+%PYTHON_CMD% --version
+echo.
+
 REM Don dep moi truong cu (Clean Build)
 echo [0/3] Don dep thu muc build cu...
 if exist "build" rmdir /s /q "build"
@@ -14,10 +30,10 @@ echo     Da don dep xong.
 echo.
 
 REM Kiem tra PyInstaller
-pip show pyinstaller >nul 2>&1
+%PYTHON_CMD% -m PyInstaller --version >nul 2>&1
 if errorlevel 1 (
     echo [!] Chua cai PyInstaller. Dang cai dat...
-    pip install pyinstaller
+    %PYTHON_CMD% -m pip install pyinstaller
 )
 
 echo.
@@ -25,10 +41,10 @@ echo [1/3] Tim duong dan streamlit/static...
 echo.
 
 REM Lay duong dan site-packages tu Python
-for /f "delims=" %%i in ('python -c "import streamlit, os; print(os.path.dirname(streamlit.__file__))"') do set STREAMLIT_PATH=%%i
+for /f "delims=" %%i in ('%PYTHON_CMD% -c "import streamlit, os; print(os.path.dirname(streamlit.__file__))"') do set STREAMLIT_PATH=%%i
 
 if "%STREAMLIT_PATH%"=="" (
-    echo [LOI] Khong tim thay thu vien Streamlit. Hay chay: pip install streamlit
+    echo [LOI] Khong tim thay thu vien Streamlit. Hay chay: %PYTHON_CMD% -m pip install streamlit
     pause
     exit /b 1
 )
@@ -39,7 +55,7 @@ echo.
 echo [2/3] Dang chay PyInstaller...
 echo.
 
-pyinstaller --noconfirm --onedir --console ^
+%PYTHON_CMD% -m PyInstaller --noconfirm --onedir --console ^
     --name "SMS_Marketing_Pro" ^
     --add-data "app.py;." ^
     --add-data "database.py;." ^
@@ -62,10 +78,8 @@ pyinstaller --noconfirm --onedir --console ^
     --hidden-import toml ^
     --hidden-import pyarrow ^
     --hidden-import packaging ^
-    --hidden-import importlib_metadata ^
     --collect-all streamlit ^
     --copy-metadata streamlit ^
-    --copy-metadata importlib_metadata ^
     run_app.py
 
 echo.
@@ -73,7 +87,6 @@ echo [3/3] Kiem tra ket qua...
 echo.
 
 if exist "dist\SMS_Marketing_Pro\SMS_Marketing_Pro.exe" (
-    REM Copy file requirements.txt va database neu co
     copy /Y requirements.txt "dist\SMS_Marketing_Pro\" >nul 2>nul
     if exist app_data.db copy /Y app_data.db "dist\SMS_Marketing_Pro\" >nul
 

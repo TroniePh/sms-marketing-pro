@@ -15,8 +15,8 @@ from typing import Optional, Tuple
 
 import requests
 
-GITHUB_OWNER = "OWNER"
-GITHUB_REPO = "REPO"
+GITHUB_OWNER = "TroniePh"
+GITHUB_REPO = "sms-marketing-pro"
 
 RELEASES_API = (
     f"https://api.github.com/repos/{GITHUB_OWNER}/{GITHUB_REPO}/releases/latest"
