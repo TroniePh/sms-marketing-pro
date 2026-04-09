@@ -1,0 +1,32 @@
+# Môi trường ảo Python
+.venv/
+venv/
+env/
+
+# Database local
+*.db
+*.sqlite
+*.sqlite3
+
+# PyInstaller build output
+build/
+dist/
+*.spec
+
+# Inno Setup output
+output/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+.DS_Store
